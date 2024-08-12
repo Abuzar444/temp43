@@ -160,7 +160,7 @@ export const createPropertyAction = async (
     } = validatedFields;
     const validatedFile = validateWithZodSchema(imageSchema, { image: file });
     const fullPath = await uploadImage(validatedFile.image);
-
+    // commit
     await db.property.create({
       data: {
         name: validatedFields.name,
