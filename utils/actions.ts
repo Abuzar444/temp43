@@ -160,17 +160,7 @@ export const createPropertyAction = async (
 
     await db.property.create({
       data: {
-        name: name,
-        tagline: tagline,
-        price: price,
-        category: category,
-        description: description,
-        country: country,
-        guests: guests,
-        bedrooms: bedrooms,
-        beds: beds,
-        baths: baths,
-        amenities: amenities,
+        ...validatedFields,
         image: fullPath,
         profileId: user.id,
       },
