@@ -37,12 +37,15 @@ export const createProfileAction = async (
     const rawData = Object.fromEntries(formData);
     // const validatedFields = profileSchema.parse(rawData);
     const validatedFields = validateWithZodSchema(profileSchema, rawData);
+    const { firstName, lastName, username } = validatedFields;
     await db.profile.create({
       data: {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
         profileImage: user.imageUrl ?? "",
-        ...validatedFields,
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
       },
     });
     await clerkClient.users.updateUserMetadata(user.id, {
@@ -160,7 +163,17 @@ export const createPropertyAction = async (
 
     await db.property.create({
       data: {
-        ...validatedFields,
+        name: name,
+        tagline: tagline,
+        price: price,
+        category: category,
+        description: description,
+        country: country,
+        guests: guests,
+        bedrooms: bedrooms,
+        beds: beds,
+        baths: baths,
+        amenities: amenities,
         image: fullPath,
         profileId: user.id,
       },
